@@ -6,6 +6,12 @@ from home.models import Course_price
 from home.models import Scholar_ship
 from home.models import Certificate
 from home.models import Apply
+from home.serializer import UserSerializer
+from home.serializer import UniversitySerializer
+from home.serializer import ApplySerializer
+from home.serializer import  CourserSerlializer
+from home.serializer import ApplicationSerializer
+from home.serializer import UniversityCoursesSerializer
 
 import json
 
@@ -188,3 +194,34 @@ def education_infor(data):
                       "msg": "uploaded"})
 
 #end apply scholarship
+
+#serializer function start
+#admin start
+def pull_all_user(data):
+  Users = User.users.all()
+  fetch_users = UserSerializer(Users,many=True).data
+
+  return json.dumps({'code': 200, "Users": fetch_users})
+
+def pull_all_universities(data):
+  collages = University.universities.all()
+  fetch_university = UniversityCoursesSerializer(collages, many=True).data
+
+  return json.dumps({'code': 200, "Universities": fetch_university})
+
+
+def pull_all_application(data):
+  application = Apply.applies.all()
+  fetch_application =ApplicationSerializer(application, many=True).data
+
+  return json.dumps({'code': 200, "Applies": fetch_application})
+
+def pull_all_course(data):
+  corse = Course.courses.all()
+  fetch_courses = CourserSerlializer(corse, many=True).data
+
+  return json.dumps({'code': 200, "courses": fetch_courses})      
+
+  
+#End admin   
+#serializer function end  

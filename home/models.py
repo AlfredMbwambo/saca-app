@@ -58,7 +58,7 @@ class Course(models.Model):
 class University(models.Model):
     univ_id = models.CharField(max_length=50,primary_key=True)
     univ_name = models.CharField(max_length=150)
-    course_id = models.CharField(max_length=150)
+    course =  models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now=True)
 
     universities = models.Manager()
@@ -110,6 +110,8 @@ class Certificate(models.Model):
     class Meta:
         db_table = "certificates" 
 
+
+#application
 class Apply(models.Model):
     apply_id  = models.CharField(max_length=50, primary_key=True)
     certificate = models.ForeignKey(Certificate, on_delete=models.DO_NOTHING)
