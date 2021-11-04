@@ -16,6 +16,7 @@ from home.query import price
 from home.query import scholarship
 from home.query import certificate
 from home.query import education_infor
+from home.query import Status
 from home.query import pull_all_user
 from home.query import pull_all_course
 from home.query import  pull_all_universities
@@ -77,6 +78,9 @@ def API(request):
             responseString = pull_all_application(client_data['data'])
 
         if client_data['code'] == 115:
-            responseString = pull_all_course(client_data['data'])                                                            
+            responseString = pull_all_course(client_data['data'])
+
+        if client_data['code'] == 116:
+            responseString = Status(client_data['data'])                                                                
     
     return HttpResponse(responseString)  

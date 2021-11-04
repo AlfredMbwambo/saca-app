@@ -118,6 +118,7 @@ class Apply(models.Model):
     school_name = models.CharField(max_length=150)
     graduation_year = models.CharField(max_length=150)
     result = models.CharField(max_length=150)
+    status =  models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
     modifield_at = models.DateTimeField(auto_now=True)
 

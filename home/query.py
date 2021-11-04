@@ -192,8 +192,21 @@ def education_infor(data):
   new_infor.save()
   return json.dumps({'code': 200,
                       "msg": "uploaded"})
-
 #end apply scholarship
+#status pending and accept user application
+def Status(data):
+  if Apply.applies.filter(apply_id=data['apply_id']).exists():
+
+    application_status = Apply.applies.get(apply_id=data['apply_id'])
+    application_status.status = data['status']
+    application_status.save()
+    return json.dumps({'code': 200,
+                        "msg":"status_marked"})
+
+  else:
+    return json.dumps({'code': 300,
+                       "mag": "Invalid status_marked"})                      
+#end status
 
 #serializer function start
 #admin start
