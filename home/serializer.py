@@ -2,6 +2,7 @@ from home.models import User
 from home.models import University
 from home.models import Apply
 from home.models import Course
+from home.models import Course_price
 from home.models import Certificate
 from rest_framework import serializers
 
@@ -14,16 +15,50 @@ class CourserSerlializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['course_name']
-#end
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
         fields = ['univ_name']   
+
+  #price
+class Course_priceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course_price
+        fields = ['course_price','year_study']
+  #end
+  #price
+class Course_priceSerializer(serializers.ModelSerializer):
+    course = CourserSerlializer
+    universities = UniversitySerializer 
+    class Meta:
+        model = Course_price
+        fields = ['course','university','course_price','year_study']
+  #end
+#end          
 #to get university name and specific courses
-class UniversityCoursesSerializer(serializers.ModelSerializer):
+
+#search university detail
+class UnivSearchSerializer(serializers.ModelSerializer):
+    course = CourserSerlializer()
+    
+    class Meta:
+        model = University
+        fields = ['course','univ_name']
+
+#end university detail
+
+#searchcourse start
+class CourseSearchSerlializer(serializers.ModelSerializer):
     course = CourserSerlializer()
 
+    class Meta:
+        model = University
+        fields = ['course','univ_name']
+#end searchcourse
+
+class UniversityCoursesSerializer(serializers.ModelSerializer):
+    course = CourserSerlializer()
     class Meta:
         model = University
         fields = ['course','univ_name']

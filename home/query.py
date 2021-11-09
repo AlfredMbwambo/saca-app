@@ -10,8 +10,12 @@ from home.serializer import UserSerializer
 from home.serializer import UniversitySerializer
 from home.serializer import ApplySerializer
 from home.serializer import  CourserSerlializer
+from home.serializer import UnivSearchSerializer
+from home.serializer import CourseSearchSerlializer
+from home.serializer import Course_priceSerializer
 from home.serializer import ApplicationSerializer
 from home.serializer import UniversityCoursesSerializer
+from django.db.models import Q
 
 import json
 
@@ -202,7 +206,6 @@ def Status(data):
     application_status.save()
     return json.dumps({'code': 200,
                         "msg":"status_marked"})
-
   else:
     return json.dumps({'code': 300,
                        "mag": "Invalid status_marked"})                      
@@ -233,8 +236,37 @@ def pull_all_course(data):
   corse = Course.courses.all()
   fetch_courses = CourserSerlializer(corse, many=True).data
 
-  return json.dumps({'code': 200, "courses": fetch_courses})      
+  return json.dumps({'code': 200, "courses": fetch_courses})
+
+def pull_all_price(data):
+  pric = Course_price.course_prices.all()
+  fetch_price = Course_priceSerializer(pric, many=True).data
+
+  return json.dumps({'code': 200, "price": fetch_price})
+
 
   
-#End admin   
+#End admin
+
+#search function 
+#university search
+def search_university_name(data):
+  query = data['univ_name']
+  collage = University.universities.filter(univ_name__icontains=query)
+  count = collage.count()
+  Collage = UnivSearchSerializer(collage, many=True).data
+
+  return json.dumps({'code': 200, "collage": Collage}) 
+#end university search
+
+#search course 
+def search_course(data):
+  query = data['course_name']
+  corse = University.universities.filter(course__course_name__icontains=query)
+  count = corse.count()
+  Corse =  CourseSearchSerlializer(corse, many=True).data
+
+  return json.dumps({'code': 200, "collage": Corse})  
+#end #search course 
+#end search function
 #serializer function end  

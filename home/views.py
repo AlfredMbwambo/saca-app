@@ -19,6 +19,9 @@ from home.query import education_infor
 from home.query import Status
 from home.query import pull_all_user
 from home.query import pull_all_course
+from home.query import pull_all_price
+from home.query import search_university_name
+from home.query import search_course
 from home.query import  pull_all_universities
 from home.query import pull_all_application
 
@@ -81,6 +84,15 @@ def API(request):
             responseString = pull_all_course(client_data['data'])
 
         if client_data['code'] == 116:
-            responseString = Status(client_data['data'])                                                                
+            responseString = Status(client_data['data'])
+
+        if client_data['code'] == 117:
+            responseString = search_university_name(client_data['data'])
+
+        if client_data['code'] == 118:
+            responseString = search_course(client_data['data']) 
+
+        if client_data['code'] == 119:
+            responseString = pull_all_price(client_data['data'])                                                                           
     
     return HttpResponse(responseString)  
