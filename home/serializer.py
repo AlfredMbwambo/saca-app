@@ -29,8 +29,8 @@ class Course_priceSerializer(serializers.ModelSerializer):
   #end
   #price
 class Course_priceSerializer(serializers.ModelSerializer):
-    course = CourserSerlializer
-    universities = UniversitySerializer 
+    course = CourserSerlializer()
+    university = UniversitySerializer() 
     class Meta:
         model = Course_price
         fields = ['course','university','course_price','year_study']

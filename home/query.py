@@ -238,6 +238,7 @@ def pull_all_course(data):
 
   return json.dumps({'code': 200, "courses": fetch_courses})
 
+  #to pull cource name,univ name and price provided
 def pull_all_price(data):
   pric = Course_price.course_prices.all()
   fetch_price = Course_priceSerializer(pric, many=True).data
@@ -267,6 +268,13 @@ def search_course(data):
   Corse =  CourseSearchSerlializer(corse, many=True).data
 
   return json.dumps({'code': 200, "collage": Corse})  
+# def search_course(data):
+#   query = data['course_name']
+#   corse = University.universities.filter(course__course_name__icontains=query)
+#   count = corse.count()
+#   Corse =  CourseSearchSerlializer(corse, many=True).data
+
+#   return json.dumps({'code': 200, "collage": Corse})  
 #end #search course 
 #end search function
 #serializer function end  
